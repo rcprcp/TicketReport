@@ -52,8 +52,8 @@ public class PdfReport {
           }
 
           // generate ticket header on PDF
-          document.add(new Paragraph(String.format("Ticket Number %d   Status: %s\nDate %s  Requester: %s",
-              t.getId(),  t.getStatus().name(), sdf.format(t.getCreatedAt()), authorName)));
+          document.add(new Paragraph(String.format("Ticket Number %d, Subject: %s  Status: %s\nDate %s  Requester: %s",
+              t.getId(), t.getSubject(), t.getStatus().name(), sdf.format(t.getCreatedAt()), authorName)));
           document.add(new Paragraph("\n\n"));
 
           for (Comment c : zdAPI.getComments(t.getId())) {
