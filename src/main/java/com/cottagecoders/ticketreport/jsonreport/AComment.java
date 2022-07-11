@@ -1,4 +1,4 @@
-package com.cottagecoders.ticketreport;
+package com.cottagecoders.ticketreport.jsonreport;
 
 public class AComment {
   String author;

@@ -1,5 +1,6 @@
-package com.cottagecoders.ticketreport;
+package com.cottagecoders.ticketreport.jsonreport;
 
+import com.cottagecoders.ticketreport.jsonreport.AComment;
 import org.zendesk.client.v2.model.Ticket;
 
 import java.util.ArrayList;

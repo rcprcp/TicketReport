@@ -1,4 +1,4 @@
-package com.cottagecoders.ticketreport;
+package com.cottagecoders.ticketreport.jsonreport;
 
 import java.util.ArrayList;
 import java.util.Date;
