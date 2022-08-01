@@ -17,7 +17,9 @@ import org.zendesk.client.v2.model.Ticket;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TicketReport {
@@ -32,6 +34,9 @@ public class TicketReport {
 
   @Parameter(names = "--help", help = true)
   private boolean help;
+
+  @Parameter(names = {"-t", "--tickets"}, description = "List of tickets to generate a report from")
+    private List<Long> tickets =  new ArrayList();
 
   public static void main(String[] args) {
     TicketReport tr = new TicketReport();
@@ -78,7 +83,7 @@ public class TicketReport {
     }
 
     if(doPdf) {
-      PdfReport pdf = new PdfReport(zdAPI, myOrg);
+      PdfReport pdf = new PdfReport(zdAPI, myOrg, tickets);
       pdf.create();
     } else {
       //JSON
