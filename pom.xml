@@ -21,9 +21,9 @@
   <dependencies>
 
     <dependency>
-      <groupId>com.streamsets</groupId>
-      <artifactId>SupportLibrary</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <groupId>com.cloudbees.thirdparty</groupId>
+      <artifactId>zendesk-java-client</artifactId>
+      <version>0.22.0</version>
     </dependency>
 
     <dependency>

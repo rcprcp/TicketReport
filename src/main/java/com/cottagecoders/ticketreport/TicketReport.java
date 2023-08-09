@@ -2,25 +2,13 @@ package com.cottagecoders.ticketreport;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.cottagecoders.ticketreport.jsonreport.AComment;
-import com.cottagecoders.ticketreport.jsonreport.ATicket;
 import com.cottagecoders.ticketreport.jsonreport.JsonReport;
-import com.cottagecoders.ticketreport.jsonreport.TheReport;
 import com.cottagecoders.ticketreport.pdfreport.PdfReport;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.streamsets.supportlibrary.aws.AWSSecret;
-import com.streamsets.supportlibrary.zendesk.ZendeskAPI;
-import org.zendesk.client.v2.model.Comment;
+import org.zendesk.client.v2.Zendesk;
 import org.zendesk.client.v2.model.Organization;
-import org.zendesk.client.v2.model.Ticket;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TicketReport {
 
@@ -36,7 +24,7 @@ public class TicketReport {
   private boolean help;
 
   @Parameter(names = {"-t", "--tickets"}, description = "List of tickets to generate a report from")
-    private List<Long> tickets =  new ArrayList();
+  private List<Long> tickets = new ArrayList();
 
   public static void main(String[] args) {
     TicketReport tr = new TicketReport();
@@ -50,23 +38,18 @@ public class TicketReport {
     JCommander.newBuilder().addObject(this).build().parse(args);
 
 
-    //get zendesk connection
-    AWSSecret secret = new AWSSecret();
-
-    Map<String, String> creds = null;
+    Zendesk zd = null;
     try {
-      creds = secret.getSecret(System.getenv("SECRET_NAME"), System.getenv("AWS_REGION"));
+      zd = new Zendesk.Builder(System.getenv("ZENDESK_URL")).setUsername(System.getenv("ZENDESK_EMAIL")).setToken(System.getenv("ZENDESK_TOKEN")).build();
     } catch (Exception ex) {
       System.out.println("Exception: " + ex.getMessage());
       ex.printStackTrace();
       System.exit(1);
     }
 
-    ZendeskAPI zdAPI = new ZendeskAPI(creds);
-
     int orgCount = 0;
     Organization myOrg = null;
-    for (Organization o : zdAPI.getAllOrganizations()) {
+    for (Organization o : zd.getOrganizations()) {
       if (o.getName().toLowerCase().contains(org.toLowerCase())) {
         //count matching
         ++orgCount;
@@ -82,12 +65,12 @@ public class TicketReport {
 
     }
 
-    if(doPdf) {
-      PdfReport pdf = new PdfReport(zdAPI, myOrg, tickets);
+    if (doPdf) {
+      PdfReport pdf = new PdfReport(zd, myOrg, tickets);
       pdf.create();
     } else {
       //JSON
-      JsonReport json = new JsonReport(zdAPI, myOrg);
+      JsonReport json = new JsonReport(zd, myOrg);
       json.create();
     }
 
