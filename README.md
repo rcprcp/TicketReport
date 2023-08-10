@@ -1,12 +1,12 @@
-# Ticket Report
+# Ticket Metrics
 
-This program requests tickets by org name from Zendesk tickets for, and generates one of the following:
-* a customer-consumable JSON report with the Org Name, a List of tickets for the Org, and a list of the customer-facing comments for each ticket.
-* a customer-consumable PDF report, in 1 file, that contains the same information as above.
+This program requests tickets by user name from Zendesk and creates the following:
+* JSON report 
+* a customer-consumable PDF report
 
 ### Developer notes 
 Then: 
-`git clone http://github.com/rcprcp/TicketReport.git`
+`git clone http://github.com/rcprcp/TicketMetrics.git`
 
 cd into the directory then:
 
@@ -22,14 +22,14 @@ export ZENDESK_URL=https://subdomain.zendesk.com
 Run the command with a command line switches:
 
 ```shell
-java -jar target/TicketReport-1.0-SNAPSHOT-jar-with-dependencies.jar --org "MyCustomer" --pdf
+java -jar target/TicketMetrics-1.0-SNAPSHOT-jar-with-dependencies.jar --user "Joe Smith" --pdf
 ```
 
 If --pdf is not present the program creates a JSON report.
 
-The orgName must be unique. 
+The userName must be unique. 
 
-### Notes for people reading the JSON output files.
+### Notes for the JSON output files.
 * Currently, the program creates an output file with a dedicated name - output.json
 * The program creates one json document, containing
     * A few header fields
