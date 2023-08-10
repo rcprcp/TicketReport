@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.cottagecoders</groupId>
-  <artifactId>TicketMetrics</artifactId>
+  <artifactId>TicketReport</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -15,7 +15,7 @@
     <log4j2.version>2.17.1</log4j2.version>
     <itextpdf.version>5.5.13.3</itextpdf.version>
     <dependency-check-maven.version>5.3.2</dependency-check-maven.version>
-    <fully.qualified.main.class>com.cottagecoders.ticketmetrics.TicketMetrics</fully.qualified.main.class>
+    <fully.qualified.main.class>com.cottagecoders.ticketreport.TicketReport</fully.qualified.main.class>
   </properties>
 
   <dependencies>
@@ -30,12 +30,6 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.13.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
     </dependency>
 
     <dependency>
